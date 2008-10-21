@@ -17,8 +17,6 @@
 #include <dc/maple/keyboard.h>
 #include <conio/conio.h>
 
-CVSID("$Id: input.c,v 1.7 2003/07/15 07:36:16 bardtx Exp $");
-
 /* This module defines a conio input system, if you want to use it. */
 
 /* the buffer for input */
