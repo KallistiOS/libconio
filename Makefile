@@ -6,7 +6,7 @@
 TARGET = libconio.a
 OBJS =  conio.o input.o draw.o
 
-defaultall: create_kos_link $(OBJS) subdirs linklib
+all: create_kos_link defaultall
 
 include $(KOS_BASE)/addons/Makefile.prefab
 
