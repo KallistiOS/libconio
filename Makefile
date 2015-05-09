@@ -5,6 +5,7 @@
 
 TARGET = libconio.a
 OBJS =  conio.o input.o draw.o
+KOS_CFLAGS += -Iinclude -DBUILD_LIBCONIO
 
 all: create_kos_link defaultall
 

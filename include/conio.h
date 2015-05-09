@@ -24,8 +24,13 @@ extern conio_cursor_t conio_cursor;
 /* the virtual screen */
 extern char conio_virtscr[CONIO_NUM_ROWS][CONIO_NUM_COLS];
 
+#ifndef BUILD_LIBCONIO
 #include <conio/input.h>
 #include <conio/draw.h>
+#else
+#include "input.h"
+#include "draw.h"
+#endif
 
 /* functions */
 void conio_scroll();

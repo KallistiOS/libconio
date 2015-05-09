@@ -14,9 +14,7 @@
 #include <kos/sem.h>
 #include <dc/maple/keyboard.h>
 #include <dc/scif.h>
-#include <conio/conio.h>
-#include <conio/draw.h>
-#include <conio/input.h>
+#include "conio.h"
 
 /* the cursor */
 conio_cursor_t conio_cursor;
@@ -155,7 +153,7 @@ int conio_getch() {
 
 			if (key == 3)
 				arch_exit();
-	
+
 			break;
 		}
 		case CONIO_TTY_STDIO: {
@@ -175,7 +173,7 @@ int conio_getch() {
 
 			if (key == 3)
 				arch_exit();
-	
+
 			break;
 		}
 	}
@@ -199,7 +197,7 @@ int conio_check_getch() {
 
 			if (key == 3)
 				arch_exit();
-	
+
 			break;
 		}
 		case CONIO_TTY_STDIO:
@@ -215,7 +213,7 @@ int conio_check_getch() {
 
 			if (key == 3)
 				arch_exit();
-	
+
 			break;
 		}
 	}
@@ -413,7 +411,7 @@ int conio_init(int ttymode, int inputmode) {
 	/* Wait for it to actually start */
 	while (!conio_entered)
 		thd_pass();
-	
+
 	return 0;
 }
 
@@ -435,6 +433,6 @@ int conio_shutdown() {
 
 	conio_ttymode = CONIO_TTY_NONE;
 	conio_inputmode = CONIO_INPUT_NONE;
-	
+
 	return 0;
 }

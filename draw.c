@@ -11,7 +11,7 @@
 #include <assert.h>
 #include <dc/pvr.h>
 #include <dc/biosfont.h>
-#include <conio/conio.h>
+#include "conio.h"
 
 /* the font texture */
 static pvr_ptr_t font_texture = NULL;
@@ -51,7 +51,7 @@ static void draw_char(float x1, float y1, float z1, float a, float r,
 	// assert( c > ' ' && c < 127 );
 	if (!( c > ' ' && c < 127 ))
 		return;
-	
+
 	ix = (c % 16) * 16;
 	iy = (c / 16) * 24;
 	u1 = ix * 1.0f / 256.0f;
@@ -68,13 +68,13 @@ static void draw_char(float x1, float y1, float z1, float a, float r,
 	vert.argb = PVR_PACK_COLOR(a, r, g, b);
 	vert.oargb = 0;
 	pvr_prim(&vert, sizeof(vert));
-	
+
 	vert.x = x1;
 	vert.y = y1;
 	vert.u = u1;
 	vert.v = v1;
 	pvr_prim(&vert, sizeof(vert));
-	
+
 	vert.x = x1 + CONIO_FONT_WIDTH;
 	vert.y = y1 + CONIO_FONT_HEIGHT;
 	vert.u = u2;
@@ -200,5 +200,3 @@ void conio_draw_frame() {
 	pvr_list_finish();
 	pvr_scene_finish();
 }
-
-

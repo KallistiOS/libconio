@@ -15,7 +15,7 @@
 #include <kos/limits.h>
 #include <kos/sem.h>
 #include <dc/maple/keyboard.h>
-#include <conio/conio.h>
+#include "conio.h"
 
 /* This module defines a conio input system, if you want to use it. */
 
@@ -148,14 +148,14 @@ static void input_insertbuff(int ch) {
 		return;
 
 	/* our str */
-	memmove(&input_buffer.text[input_buffer.pos + 1], &input_buffer.text[input_buffer.pos], 
+	memmove(&input_buffer.text[input_buffer.pos + 1], &input_buffer.text[input_buffer.pos],
 		len - input_buffer.pos + 1);
 	/* the virtscr */
-	if (conio_cursor.row * CONIO_NUM_COLS + conio_cursor.col + len - input_buffer.pos + 1 
+	if (conio_cursor.row * CONIO_NUM_COLS + conio_cursor.col + len - input_buffer.pos + 1
 			>= CONIO_NUM_COLS * CONIO_NUM_ROWS)
 		conio_scroll();
 	memmove(&conio_virtscr[conio_cursor.row][conio_cursor.col + 1],
-		&conio_virtscr[conio_cursor.row][conio_cursor.col], 
+		&conio_virtscr[conio_cursor.row][conio_cursor.col],
 		len - input_buffer.pos + 1);
 	input_buffer.text[input_buffer.pos] = ch;
 	input_buffer.pos++;
@@ -176,12 +176,12 @@ static void input_delchar_buff() {
 		return;
 
 	/* our str */
-	memmove(&input_buffer.text[input_buffer.pos], &input_buffer.text[input_buffer.pos + 1], 
+	memmove(&input_buffer.text[input_buffer.pos], &input_buffer.text[input_buffer.pos + 1],
 		len - input_buffer.pos + 1);
 	input_buffer.text[len] = '\0';
 	/* the virtscr */
 	memmove(&conio_virtscr[conio_cursor.row][conio_cursor.col],
-		&conio_virtscr[conio_cursor.row][conio_cursor.col + 1], 
+		&conio_virtscr[conio_cursor.row][conio_cursor.col + 1],
 		len - input_buffer.pos + 1);
 }
 
@@ -268,5 +268,3 @@ void conio_input_frame() {
 		case INPUT_COMMAND:	input_command();	break;
 	}
 }
-
-
