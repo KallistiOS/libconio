@@ -41,12 +41,12 @@ typedef struct cb_sem_data_str {
 	struct cb_sem_data_str	*next;
 } cb_sem_data_t;
 static volatile cb_sem_data_t	*cb_queue;
-static semaphore_t		*cb_sem, *cb_mutex;
+static semaphore_t		cb_sem, cb_mutex;
 static volatile int		cb_dead;
 
 static void input_cb_init() {
-	cb_sem = sem_create(0);
-	cb_mutex = sem_create(1);
+	sem_init(&cb_sem, 0);
+	sem_init(&cb_mutex, 1);
 	cb_queue = NULL;
 	cb_dead = 0;
 }
@@ -55,13 +55,13 @@ static void cb_default(const char *str) {
 	cb_sem_data_t *t;
 
 	t = malloc(sizeof(cb_sem_data_t));
-	sem_wait(cb_mutex);
+	sem_wait(&cb_mutex);
 	strncpy(t->line, str, 255); t->line[255] = '\0';
 	t->next = (cb_sem_data_t *)cb_queue;
 	cb_queue = t;
-	sem_signal(cb_mutex);
+	sem_signal(&cb_mutex);
 
-	sem_signal(cb_sem);
+	sem_signal(&cb_sem);
 }
 
 static void input_cb_shutdown() {
@@ -76,8 +76,8 @@ static void input_cb_shutdown() {
 	for (i=0; i<5; i++)
 		thd_pass();
 
-	sem_destroy(cb_mutex);
-	sem_destroy(cb_sem);
+	sem_destroy(&cb_mutex);
+	sem_destroy(&cb_sem);
 
 	for (t=(cb_sem_data_t *)cb_queue; t; t = n) {
 		n = t->next;
@@ -99,15 +99,15 @@ int conio_input_getline(int block, char *dst, int dstcnt) {
 
 	/* Wait for some input to be ready */
 	if (block > 0) {
-		if (sem_wait_timed(cb_sem, block) < 0)
+		if (sem_wait_timed(&cb_sem, block) < 0)
 			return -1;
 	} else {
-		if (sem_wait(cb_sem) < 0)
+		if (sem_wait(&cb_sem) < 0)
 			return -1;
 	}
 
 	/* Grab the mutex and retrieve the line */
-	sem_wait(cb_mutex);
+	sem_wait(&cb_mutex);
 	assert( cb_queue != NULL );
 	for (l=NULL, t=(cb_sem_data_t *)cb_queue; t->next; t=t->next)
 		l=t;
@@ -118,7 +118,7 @@ int conio_input_getline(int block, char *dst, int dstcnt) {
 	} else {
 		cb_queue = NULL;
 	}
-	sem_signal(cb_mutex);
+	sem_signal(&cb_mutex);
 
 	strncpy(dst, t->line, dstcnt-1);
 	dst[dstcnt-1] = '\0';

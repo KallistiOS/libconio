@@ -27,7 +27,7 @@ int conio_ttymode = CONIO_TTY_NONE, conio_inputmode = CONIO_INPUT_NONE;
 int conio_theme = CONIO_THEME_PLAIN;
 
 /* freeze/thaw mutex */
-static semaphore_t *ft_mutex;
+static semaphore_t ft_mutex;
 
 /* File handle for serial tty */
 file_t conio_serial_fd;
@@ -330,12 +330,12 @@ void conio_clear() {
 
 /* conio freeze (for sub-process taking over TA) */
 void conio_freeze() {
-	sem_wait(ft_mutex);
+	sem_wait(&ft_mutex);
 }
 
 /* conio thaw */
 void conio_thaw() {
-	sem_signal(ft_mutex);
+	sem_signal(&ft_mutex);
 }
 
 /* set theme */
@@ -353,7 +353,7 @@ static volatile int conio_exit = 0;
 static void *conio_thread(void *param) {
 	conio_entered = 1;
 	while (!conio_exit) {
-		sem_wait(ft_mutex);
+		sem_wait(&ft_mutex);
 		conio_input_frame();
 		if (conio_ttymode == CONIO_TTY_PVR) {
 #ifdef GFX
@@ -364,7 +364,7 @@ static void *conio_thread(void *param) {
 				scif_flush();
 			thd_sleep(1000/60);	/* Simulate frame delay */
 		}
-		sem_signal(ft_mutex);
+		sem_signal(&ft_mutex);
 	}
 	conio_exit = -1;
 	return NULL;
@@ -401,7 +401,7 @@ int conio_init(int ttymode, int inputmode) {
 		conio_gotoxy(0, 0);
 	}
 
-	ft_mutex = sem_create(1);
+	sem_init(&ft_mutex, 1);
 
 	/* create the conio thread */
 	conio_exit = 0;
@@ -423,7 +423,7 @@ int conio_shutdown() {
 		;
 
 	/* Delete the sempahore */
-	sem_destroy(ft_mutex);
+	sem_destroy(&ft_mutex);
 
 #ifdef GFX
 	if (conio_ttymode == CONIO_TTY_PVR)
