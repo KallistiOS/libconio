@@ -1,10 +1,9 @@
 /* KallistiOS ##version##
 
- input.c
+   input.c
+   Copyright (C) 2002 Megan Potter
 
- (c)2002 Dan Potter
-
- Adapted from Kosh, (c)2000 Jordan DeLong
+   Adapted from Kosh, Copyright (C) 2000 Jordan DeLong
 
 */
 
@@ -13,6 +12,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <kos/limits.h>
+#include <kos/thread.h>
 #include <kos/sem.h>
 #include <dc/maple/keyboard.h>
 #include "conio.h"

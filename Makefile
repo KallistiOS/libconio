@@ -1,7 +1,7 @@
 # KallistiOS ##version##
 #
-# addons/libconio Makefile
-# (c)2002 Dan Potter
+# libconio Makefile
+# Copyright (C) 2002 Megan Potter
 
 TARGET = libconio.a
 OBJS =  conio.o input.o draw.o

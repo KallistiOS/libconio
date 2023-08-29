@@ -1,10 +1,9 @@
 /* KallistiOS ##version##
 
- conio.c
+   draw.c
+   Copyright (C) 2002 Megan Potter
 
- (c)2002 Dan Potter
-
- Adapted from Kosh, (c)2000 Jordan DeLong
+   Adapted from Kosh, Copyright (C) 2000 Jordan DeLong
 
 */
 
@@ -40,8 +39,8 @@ void conio_draw_shutdown() {
 
 /* Draw one font character (6x12) */
 static void draw_char(float x1, float y1, float z1, float a, float r,
-		float g, float b, int c) {
-	pvr_vertex_t	vert;
+                      float g, float b, int c) {
+	pvr_vertex_t vert;
 	int ix, iy;
 	float u1, v1, u2, v2;
 

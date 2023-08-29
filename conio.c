@@ -1,19 +1,20 @@
 /* KallistiOS ##version##
 
- conio.c
+   conio.c
+   Copyright (C) 2002 Megan Potter
 
- (c)2002 Dan Potter
-
- Adapted from Kosh, (c)2000 Jordan DeLong
+   Adapted from Kosh, Copyright (C) 2000 Jordan DeLong
 
 */
 
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
+#include <kos/thread.h>
 #include <kos/sem.h>
 #include <dc/maple/keyboard.h>
 #include <dc/scif.h>
+#include <arch/arch.h>
 #include "conio.h"
 
 /* the cursor */
@@ -119,7 +120,7 @@ void conio_gotoxy(int x, int y) {
 		case CONIO_TTY_SERIAL: {
 			char tmp[256];
 			sprintf(tmp, "\x1b[%d;%df", x, y);
-			scif_write_buffer(tmp, strlen(tmp), 1);
+			scif_write_buffer((unsigned char *)tmp, strlen(tmp), 1);
 			break;
 		}
 		case CONIO_TTY_STDIO: {
@@ -131,7 +132,7 @@ void conio_gotoxy(int x, int y) {
 		case CONIO_TTY_DBGIO: {
 			char tmp[256];
 			sprintf(tmp, "\x1b[%d;%df", x, y);
-			dbgio_write_buffer(tmp, strlen(tmp));
+			dbgio_write_buffer((unsigned char *)tmp, strlen(tmp));
 			break;
 		}
 	}
