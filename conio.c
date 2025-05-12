@@ -354,6 +354,8 @@ static volatile int conio_exit = 0;
 
 /* the drawing/keyboard polling thread */
 static void *conio_thread(void *param) {
+    (void)param;
+
 	conio_entered = 1;
 	while (!conio_exit) {
 		sem_wait(&ft_mutex);
@@ -408,7 +410,7 @@ int conio_init(int ttymode, int inputmode) {
 
 	/* create the conio thread */
 	conio_exit = 0;
-	if (thd_create(1, conio_thread, 0) < 0)
+	if (!thd_create(1, conio_thread, 0))
 		return -1;
 
 	/* Wait for it to actually start */

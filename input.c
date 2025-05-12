@@ -22,7 +22,7 @@
 /* the buffer for input */
 static struct {
 	char text[CONIO_INPUT_BUFFSIZE];
-	int pos;	/* pos in the buffer, not the screen */
+	unsigned int pos;	/* pos in the buffer, not the screen */
 } input_buffer;
 
 /* the state var */
