@@ -36,7 +36,7 @@ static semaphore_t ft_mutex;
 file_t conio_serial_fd;
 
 /* scroll everything up a line */
-void conio_scroll() {
+void conio_scroll(void) {
 	int i;
 
 	switch (conio_ttymode) {
@@ -59,7 +59,7 @@ void conio_scroll() {
 }
 
 /* move the cursor back, don't scroll (we can't) */
-void conio_deadvance_cursor() {
+void conio_deadvance_cursor(void) {
 	switch (conio_ttymode) {
 		case CONIO_TTY_PVR:
 			conio_cursor.col--;
@@ -89,7 +89,7 @@ void conio_deadvance_cursor() {
 }
 
 /* move the cursor ahead, scroll if we need to */
-void conio_advance_cursor() {
+void conio_advance_cursor(void) {
 	switch (conio_ttymode) {
 		case CONIO_TTY_PVR:
 			conio_cursor.col++;
@@ -141,7 +141,7 @@ void conio_gotoxy(int x, int y) {
 }
 
 /* blocking call for a character */
-int conio_getch() {
+int conio_getch(void) {
 	int key = -1;
 	uint8 b;
 
@@ -185,7 +185,7 @@ int conio_getch() {
 }
 
 /* Check to see if a key has been pressed */
-int conio_check_getch() {
+int conio_check_getch(void) {
 	int key = -1;
 	uint8 b;
 
@@ -309,7 +309,7 @@ int conio_printf(const char *fmt, ...) {
 }
 
 /* clear the screen */
-void conio_clear() {
+void conio_clear(void) {
 	int row, col;
 
 	switch (conio_ttymode) {
@@ -332,12 +332,12 @@ void conio_clear() {
 }
 
 /* conio freeze (for sub-process taking over TA) */
-void conio_freeze() {
+void conio_freeze(void) {
 	sem_wait(&ft_mutex);
 }
 
 /* conio thaw */
-void conio_thaw() {
+void conio_thaw(void) {
 	sem_signal(&ft_mutex);
 }
 
@@ -418,7 +418,7 @@ int conio_init(int ttymode, int inputmode) {
 	return 0;
 }
 
-int conio_shutdown() {
+int conio_shutdown(void) {
 	/* shutup our thread */
 	conio_exit = 1;
 
