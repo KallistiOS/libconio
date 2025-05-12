@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
+#include <unistd.h>
+#include <kos/fs.h>
 #include <kos/thread.h>
 #include <kos/sem.h>
 #include <dc/maple/keyboard.h>
