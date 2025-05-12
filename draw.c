@@ -16,7 +16,7 @@
 static pvr_ptr_t font_texture = NULL;
 
 /* initialize draw stuff: get our texture of the font, etc */
-void conio_draw_init() {
+void conio_draw_init(void) {
 	uint16 *vram;
 	int x, y;
 
@@ -32,7 +32,7 @@ void conio_draw_init() {
 	}
 }
 
-void conio_draw_shutdown() {
+void conio_draw_shutdown(void) {
 	assert( font_texture != NULL );
 	pvr_mem_free(font_texture);
 }
@@ -175,7 +175,7 @@ static void draw_cursor(float r, float g, float b) {
 }
 
 /* our exported drawing function: does a full redraw of everything */
-void conio_draw_frame() {
+void conio_draw_frame(void) {
 	pvr_wait_ready();
 	pvr_scene_begin();
 	pvr_list_begin(PVR_LIST_TR_POLY);

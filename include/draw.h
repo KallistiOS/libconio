@@ -23,9 +23,9 @@
 #define CONIO_SCREEN_LASTCOL  (CONIO_SCREEN_WIDTH - CONIO_SCREEN_FIRSTCOL)
 
 /* functions */
-void conio_draw_init();
-void conio_draw_shutdown();
-void conio_draw_frame();
+void conio_draw_init(void);
+void conio_draw_shutdown(void);
+void conio_draw_frame(void);
 
 #endif /* __CONIO_DRAW_H */
 

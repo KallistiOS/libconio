@@ -44,7 +44,7 @@ static volatile cb_sem_data_t	*cb_queue;
 static semaphore_t		cb_sem, cb_mutex;
 static volatile int		cb_dead;
 
-static void input_cb_init() {
+static void input_cb_init(void) {
 	sem_init(&cb_sem, 0);
 	sem_init(&cb_mutex, 1);
 	cb_queue = NULL;
@@ -64,7 +64,7 @@ static void cb_default(const char *str) {
 	sem_signal(&cb_sem);
 }
 
-static void input_cb_shutdown() {
+static void input_cb_shutdown(void) {
 	cb_sem_data_t *t, *n;
 	int i;
 
@@ -167,7 +167,7 @@ static void input_insertbuff(int ch) {
 }
 
 /* remove the char at input_buffer.pos from the buffer, and reflect the changes on the virtscr */
-static void input_delchar_buff() {
+static void input_delchar_buff(void) {
 	int len;
 
 	len = strlen(input_buffer.text);
@@ -186,7 +186,7 @@ static void input_delchar_buff() {
 }
 
 /* print the prompt out, clear input buffer */
-static void input_prompt() {
+static void input_prompt(void) {
 	input_buffer.pos = 0;
 	*input_buffer.text = '\0';
 	/* conio_putstr("> "); */
@@ -194,7 +194,7 @@ static void input_prompt() {
 }
 
 /* reading commands from the prompt */
-static void input_readcomm() {
+static void input_readcomm(void) {
 	int key;
 
 	key = conio_check_getch();
@@ -243,25 +243,25 @@ static void input_readcomm() {
 }
 
 /* read command line, try to execute builtin commands, otherwise externals (this coming soon) */
-static void input_command() {
+static void input_command(void) {
 	input_state = INPUT_PROMPT;
 
 	if (input_cb)
 		input_cb(input_buffer.text);
 }
 
-void conio_input_init() {
+void conio_input_init(void) {
 	input_cb_init();
 	input_cb = cb_default;
 }
 
-void conio_input_shutdown() {
+void conio_input_shutdown(void) {
 	input_cb = NULL;
 	input_cb_shutdown();
 }
 
 /* our exported input function, called once per frame. */
-void conio_input_frame() {
+void conio_input_frame(void) {
 	switch (input_state) {
 		case INPUT_PROMPT:	input_prompt();		break;
 		case INPUT_READCOMM:	input_readcomm();	break;

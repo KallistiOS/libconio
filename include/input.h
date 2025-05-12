@@ -14,9 +14,9 @@
 #define CONIO_INPUT_BUFFSIZE	256
 
 /* functions */
-void conio_input_frame();
-void conio_input_init();
-void conio_input_shutdown();
+void conio_input_frame(void);
+void conio_input_init(void);
+void conio_input_shutdown(void);
 
 typedef void (*conio_input_callback_t)(const char *str);
 void conio_input_callback(conio_input_callback_t cb);

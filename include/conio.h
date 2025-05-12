@@ -33,19 +33,19 @@ extern char conio_virtscr[CONIO_NUM_ROWS][CONIO_NUM_COLS];
 #endif
 
 /* functions */
-void conio_scroll();
-void conio_deadvance_cursor();
-void conio_advance_cursor();
+void conio_scroll(void);
+void conio_deadvance_cursor(void);
+void conio_advance_cursor(void);
 void conio_gotoxy(int x, int y);
-int conio_getch();
-int conio_check_getch();
+int conio_getch(void);
+int conio_check_getch(void);
 void conio_setch(int ch);
 void conio_putch(int ch);
 void conio_putstr(char *str);
 int conio_printf(const char *fmt, ...);
-void conio_clear();
-void conio_freeze();
-void conio_thaw();
+void conio_clear(void);
+void conio_freeze(void);
+void conio_thaw(void);
 void conio_set_theme(int theme);
 
 /* Themes:
@@ -74,7 +74,7 @@ void conio_set_theme(int theme);
 extern int conio_ttymode, conio_inputmode, conio_theme;
 
 int conio_init(int ttymode, int inputmode);
-int conio_shutdown();
+int conio_shutdown(void);
 
 __END_DECLS
 
