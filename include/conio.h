@@ -2,7 +2,7 @@
 
  conio.h
 
- (c)2002 Dan Potter
+ (c)2002 Megan Potter
 
  Adapted from Kosh, (c)2000 Jordan DeLong
 */
