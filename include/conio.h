@@ -14,8 +14,8 @@
 __BEGIN_DECLS
 
 /* some defines */
-#define CONIO_NUM_ROWS	18
-#define CONIO_NUM_COLS	48
+#define CONIO_NUM_ROWS  18
+#define CONIO_NUM_COLS  48
 
 /* our cursor */
 typedef struct { int row, col; } conio_cursor_t;
@@ -53,23 +53,23 @@ void conio_set_theme(int theme);
    - MATRIX is green text on a black background
    - C64 is cyan text on a blue background, with a cyan border
  */
-#define CONIO_THEME_PLAIN	0
-#define CONIO_THEME_MATRIX	1
-#define CONIO_THEME_C64		2
+#define CONIO_THEME_PLAIN   0
+#define CONIO_THEME_MATRIX  1
+#define CONIO_THEME_C64     2
 
 /* Init modes:
    - TTY can be serial, PVR console, or stdio (pty)
    - Input mode can be NONE, LINE, CHAR
 
    The only valid combination for now is TTY_PVR and INPUT_LINE */
-#define CONIO_TTY_NONE		0
-#define CONIO_TTY_PVR		1
-#define CONIO_TTY_SERIAL	2
-#define CONIO_TTY_STDIO		3
-#define CONIO_TTY_DBGIO		4
-#define CONIO_INPUT_NONE	0
-#define CONIO_INPUT_LINE	1
-#define CONIO_INPUT_CHAR	2
+#define CONIO_TTY_NONE      0
+#define CONIO_TTY_PVR       1
+#define CONIO_TTY_SERIAL    2
+#define CONIO_TTY_STDIO     3
+#define CONIO_TTY_DBGIO     4
+#define CONIO_INPUT_NONE    0
+#define CONIO_INPUT_LINE    1
+#define CONIO_INPUT_CHAR    2
 
 extern int conio_ttymode, conio_inputmode, conio_theme;
 

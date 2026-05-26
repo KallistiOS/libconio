@@ -11,7 +11,7 @@
 #define __CONIO_INPUT_H
 
 /* size of the input buffer */
-#define CONIO_INPUT_BUFFSIZE	256
+#define CONIO_INPUT_BUFFSIZE    256
 
 /* functions */
 void conio_input_frame(void);
