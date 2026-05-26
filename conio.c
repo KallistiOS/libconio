@@ -81,9 +81,7 @@ void conio_deadvance_cursor(void) {
 			fs_write(conio_serial_fd, (void *)"\x8\x20\x8", 3);
 			break;
 		case CONIO_TTY_DBGIO:
-			dbgio_write(8);
-			dbgio_write(32);
-			dbgio_write(8);
+			dbgio_write_buffer((const uint8 *)"\x8\x20\x8", 3);
 			break;
 	}
 }
@@ -170,9 +168,11 @@ int conio_getch(void) {
 			break;
 		}
 		case CONIO_TTY_DBGIO: {
-			while ((key = dbgio_read()) == -1) {
+			while (dbgio_read_buffer(&b, 1) == -1) {
 				thd_sleep(1000);
 			}
+
+            key = b;
 
 			if (key == 3)
 				arch_exit();
@@ -212,7 +212,8 @@ int conio_check_getch(void) {
 				key = -1;
 			break;
 		case CONIO_TTY_DBGIO: {
-			key = dbgio_read();
+			if(dbgio_read_buffer(&b, 1) == 1)
+                key = b;
 
 			if (key == 3)
 				arch_exit();
@@ -279,7 +280,7 @@ void conio_putch(int ch) {
 			fs_write(conio_serial_fd, &ch, 1);
 			break;
 		case CONIO_TTY_DBGIO:
-			dbgio_write(ch);
+			dbgio_write_buffer((uint8_t *)&ch, 1);
 			break;
 	}
 }
