@@ -47,13 +47,13 @@ void conio_scroll(void) {
             conio_cursor.row--;
             break;
         case CONIO_TTY_SERIAL:
-            scif_write_buffer((const uint8 *)"\x1b[M", 3, 1);
+            scif_write_buffer((const uint8_t *)"\x1b[M", 3, 1);
             break;
         case CONIO_TTY_STDIO:
             fs_write(conio_serial_fd, (void *)"\x1b[M", 3);
             break;
         case CONIO_TTY_DBGIO:
-            dbgio_write_buffer((const uint8 *)"\x1b[M", 3);
+            dbgio_write_buffer((const uint8_t *)"\x1b[M", 3);
             break;
     }
 }
@@ -81,7 +81,7 @@ void conio_deadvance_cursor(void) {
             fs_write(conio_serial_fd, (void *)"\x8\x20\x8", 3);
             break;
         case CONIO_TTY_DBGIO:
-            dbgio_write_buffer((const uint8 *)"\x8\x20\x8", 3);
+            dbgio_write_buffer((const uint8_t *)"\x8\x20\x8", 3);
             break;
     }
 }
@@ -99,13 +99,13 @@ void conio_advance_cursor(void) {
             }
             break;
         case CONIO_TTY_SERIAL:
-            scif_write_buffer((const uint8 *)"\x1b[1C", 4, 1);
+            scif_write_buffer((const uint8_t *)"\x1b[1C", 4, 1);
             break;
         case CONIO_TTY_STDIO:
             fs_write(conio_serial_fd, (void *)"\x1b[1C", 4);
             break;
         case CONIO_TTY_DBGIO:
-            dbgio_write_buffer((const uint8 *)"\x1b[1C", 4);
+            dbgio_write_buffer((const uint8_t *)"\x1b[1C", 4);
             break;
     }
 }
@@ -141,7 +141,7 @@ void conio_gotoxy(int x, int y) {
 /* blocking call for a character */
 int conio_getch(void) {
     int key = -1;
-    uint8 b;
+    uint8_t b;
 
     switch (conio_ttymode) {
         case CONIO_TTY_PVR:
@@ -187,7 +187,7 @@ int conio_getch(void) {
 /* Check to see if a key has been pressed */
 int conio_check_getch(void) {
     int key = -1;
-    uint8 b;
+    uint8_t b;
 
     switch (conio_ttymode) {
         case CONIO_TTY_PVR:
@@ -321,13 +321,13 @@ void conio_clear(void) {
                     conio_virtscr[row][col] = ' ';
             break;
         case CONIO_TTY_SERIAL:
-            scif_write_buffer((uint8 *)"\x1b[2J", 4, 1);
+            scif_write_buffer((uint8_t *)"\x1b[2J", 4, 1);
             break;
         case CONIO_TTY_STDIO:
             fs_write(conio_serial_fd, (void *)"\x1b[2J", 4);
             break;
         case CONIO_TTY_DBGIO:
-            dbgio_write_buffer((uint8 *)"\x1b[2J", 4);
+            dbgio_write_buffer((uint8_t *)"\x1b[2J", 4);
             break;
     }
 }

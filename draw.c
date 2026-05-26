@@ -17,11 +17,11 @@ static pvr_ptr_t font_texture = NULL;
 
 /* initialize draw stuff: get our texture of the font, etc */
 void conio_draw_init(void) {
-    uint16 *vram;
+    uint16_t *vram;
     int x, y;
 
     font_texture = pvr_mem_malloc(256*256*2);
-    vram = (uint16 *)font_texture;
+    vram = (uint16_t *)font_texture;
 
     for (y = 0; y < 8; y++) {
         for (x = 0; x < 16; x++) {
