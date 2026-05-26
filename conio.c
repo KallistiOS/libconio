@@ -8,6 +8,7 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <assert.h>
 #include <unistd.h>
@@ -16,7 +17,6 @@
 #include <kos/sem.h>
 #include <dc/maple/keyboard.h>
 #include <dc/scif.h>
-#include <arch/arch.h>
 #include "conio.h"
 
 /* the cursor */
@@ -153,7 +153,7 @@ int conio_getch(void) {
             while ((key = scif_read()) == -1) { thd_pass(); }
 
             if (key == 3)
-                arch_exit();
+                exit(EXIT_SUCCESS);
 
             break;
         }
@@ -175,7 +175,7 @@ int conio_getch(void) {
             key = b;
 
             if (key == 3)
-                arch_exit();
+                exit(EXIT_SUCCESS);
 
             break;
         }
@@ -199,7 +199,7 @@ int conio_check_getch(void) {
             key = scif_read();
 
             if (key == 3)
-                arch_exit();
+                exit(EXIT_SUCCESS);
 
             break;
         }
@@ -216,7 +216,7 @@ int conio_check_getch(void) {
                 key = b;
 
             if (key == 3)
-                arch_exit();
+                exit(EXIT_SUCCESS);
 
             break;
         }
